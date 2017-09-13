@@ -50,3 +50,7 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 && cd ../..
 && git clone https://github.com/arthurgeron/picamera
 && sudo python3 picamera/main.py
+#Expose port 80
+EXPOSE 80
+#Default command
+CMD ["python3", "picamera/main.py"]
