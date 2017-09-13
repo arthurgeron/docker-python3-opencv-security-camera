@@ -46,10 +46,12 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
   -DPYTHON_PACKAGES_PATH=$(python3.6 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
 && make install \
 && rm /3.3.0.zip \
-&& rm -r /opencv-3.3.0
-&& cd ../..
-&& git clone https://github.com/arthurgeron/picamera
-&& sudo python3 picamera/main.py
+&& rm -r /opencv-3.3.0 \
+&& cd ../.. \
+&& git clone https://github.com/arthurgeron/picamera \
+cd picamera \
+&& pip install -r requirements.txt \
+&& python3 main.py 
 #Expose port 80
 EXPOSE 80
 #Default command
