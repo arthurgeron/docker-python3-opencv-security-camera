@@ -24,7 +24,12 @@ RUN pip install numpy
 
 WORKDIR /
 RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
+&& git clone https://github.com/arthurgeron/picamera \
 && unzip 3.3.0.zip \
+&& cd picamera \
+&& pip install -r requirements.txt \
+&& cd .. \
+&& sed -i 's/#if NPY_INTERNAL_BUILD/#ifndef NPY_INTERNAL_BUILD\n#define NPY_INTERNAL_BUILD/g' /usr/local/lib/python3.6/site-packages/numpy/core/include/numpy/npy_common.h \
 && mkdir /opencv-3.3.0/cmake_binary \
 && cd /opencv-3.3.0/cmake_binary \
 && cmake -DBUILD_TIFF=ON \
@@ -48,10 +53,6 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 && rm /3.3.0.zip \
 && rm -r /opencv-3.3.0 \
 && cd ../.. \
-&& git clone https://github.com/arthurgeron/picamera \
-cd picamera \
-&& pip install -r requirements.txt \
-&& python3 main.py 
 #Expose port 80
 EXPOSE 80
 #Default command
