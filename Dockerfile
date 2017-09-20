@@ -1,6 +1,6 @@
 FROM python:3.6
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
-
+USER root
 RUN apt-get update && \
         apt-get install -y \
         build-essential \
