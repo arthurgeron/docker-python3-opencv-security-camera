@@ -56,4 +56,4 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 #Expose port 80
 EXPOSE 80
 #Default command
-CMD ["picamera/main.py"]
+#CMD ["picamera/main.py"]
