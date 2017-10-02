@@ -4,4 +4,4 @@ Runs a python application which broadcasts your camera's video on the local netw
 **WARNING** Anyone on your local network will be able to view your camera's video while your docker container is running.   
    
 Usage:   
-> docker run -d -p 80:80 arthurgeron/docker-python3-opencv-security-camera
+> docker run -d -p 80:80 --privileged=true -a stdin -v /dev/video0:/dev/video0 arthurgeron/docker-python3-opencv-security-camera
