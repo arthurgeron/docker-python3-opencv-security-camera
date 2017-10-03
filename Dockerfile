@@ -18,10 +18,10 @@ RUN apt-get update && \
         libtiff-dev \
         libjasper-dev \
         libavformat-dev \
-        libpq-dev \
-        python3-dev \
-        python3-pip
+        libpq-dev
 
+RUN apt-get install -y software-properties-common && add-apt-repository ppa:jonathonf/python-3.6 -y
+RUN apt-get install -y python3.6 -y
 RUN pip install numpy
 
 WORKDIR /
