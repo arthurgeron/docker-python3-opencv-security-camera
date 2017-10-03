@@ -5,3 +5,5 @@ Runs a python application which broadcasts your camera's video on the local netw
    
 Usage:   
 > docker run -d -p 80:80 --privileged=true -v /dev/video0:/dev/video0 arthurgeron/docker-python3-opencv-security-camera:latest
+
+Python Script Repository: `https://github.com/arthurgeron/picamera`
