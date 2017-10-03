@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM armv7/armhf-ubuntu:latest
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
 USER root
 RUN apt-get update && \
@@ -18,7 +18,9 @@ RUN apt-get update && \
         libtiff-dev \
         libjasper-dev \
         libavformat-dev \
-        libpq-dev
+        libpq-dev \
+        python3-dev \
+        python3-pip
 
 RUN pip install numpy
 
