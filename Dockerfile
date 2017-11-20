@@ -1,6 +1,7 @@
-FROM armv7/armhf-ubuntu:latest
+FROM resin/armv7hf-debian
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
 USER root
+RUN [ "cross-build-start" ]
 RUN apt-get update && \
         apt-get install -y \
         build-essential \
@@ -56,6 +57,7 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 && rm -r /opencv-3.3.0 \
 && cd ../.. \
 && chmod +x picamera/main.py
+RUN [ "cross-build-end" ]  
 #Expose port 80
 EXPOSE 80
 #Default command
