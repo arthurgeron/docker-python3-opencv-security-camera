@@ -8,7 +8,7 @@ build:
         name: Install Dependencies
         code: |
             apt-get install docker.io
-     - script:
+    - script:
         name: Build Image
         code: |
             docker build .
