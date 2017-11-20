@@ -1,13 +1,13 @@
 
 box:
-  id: armv7/armhf-ubuntu:latest
+  id: armv7/armhf-ubuntu
 build:
   steps:
     - script:
         name: Install Dependencies
         code: |
             apt-get install docker.io
-    - script:
+     - script:
         name: Build Image
         code: |
             docker build .
