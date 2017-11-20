@@ -12,10 +12,12 @@ build:
         code: |
             docker build .
 deploy:
-  box: busybox
   steps:
-    - internal/docker-push:
-        username: $DOCKER_USER
-        password: $DOCKER_PASSWORD
-        repository: arthurgeron/docker-python3-opencv-security-camera
-        registry: https://registry.hub.docker.com
+    - script:
+        name: Authenticate
+        code: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - script:
+        name: Push
+        code: |
+            docker push $DOCKER_USER/docker-python3-opencv-security-camera
