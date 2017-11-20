@@ -1,6 +1,7 @@
 
 box:
-  id: armv7/armhf-ubuntu
+  id: armv7/armhf-ubuntu:latest
+  cmd: /bin/sh
 build:
   steps:
     - script:
