@@ -2,7 +2,8 @@ FROM resin/armv7hf-debian
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
 USER root
 RUN [ "cross-build-start" ]
-RUN apt-get update && \
+RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
+        apt-get update && \
         apt-get install -y \
         build-essential \
         cmake \
