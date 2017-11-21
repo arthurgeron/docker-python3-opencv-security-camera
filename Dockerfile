@@ -2,7 +2,9 @@ FROM resin/armv7hf-debian
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
 USER root
 RUN [ "cross-build-start" ]
-RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
+RUN apt-get install -y software-properties-common python-software-properties && \
+        add-apt-repository -y ppa:fkrull/deadsnakes && \
+        add-apt-repository -y ppa:jonathonf/python-3.6 && \
         apt-get update && \
         apt-get install -y \
         build-essential \
@@ -22,9 +24,8 @@ RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
         libavformat-dev \
         libpq-dev
 
-RUN apt-get install -y software-properties-common && add-apt-repository ppa:jonathonf/python-3.6 -y
-RUN apt-get install -y python3.6 -y
-RUN pip install numpy
+RUN apt-get install -y  python3.6 && \
+                        pip install numpy
 
 WORKDIR /
 RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
