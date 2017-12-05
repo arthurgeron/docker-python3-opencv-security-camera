@@ -6,11 +6,29 @@ RUN apt-get update && \
     apt-get install -y \
     software-properties-common \
     python-software-properties
-RUN add-apt-repository -y ppa:deadsnakes/ppa && \
-        add-apt-repository -y ppa:jonathonf/python-3.6 && \
-        apt-get update
 RUN apt-get install -y \
         build-essential \
+        tk-dev \
+        libncurses5-dev \
+        libncurses5-dev \
+        libreadline6-dev \
+        libdb5.3-dev \
+        libgdbm-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        libbz2-dev \
+        libexpat1-dev \
+        liblzma-dev \
+        zlib1g-dev && \
+        # Install Python
+        wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz && \
+        tar xf Python-3.6.0.tar.xz && \
+        cd Python-3.6.0 && \
+        ./configure && \
+        make && \
+        make altinstall && \
+        cd .. && \
+        apt-get install -y \
         cmake \
         git \
         wget \
@@ -27,8 +45,26 @@ RUN apt-get install -y \
         libavformat-dev \
         libpq-dev
 
-RUN apt-get install -y  python3.6 && \
-                        pip install numpy
+
+
+RUN pip install numpy && \
+        # Delete source files 
+        rm -r Python-3.6.0 && \
+        apt-get --purge remove build-essential \
+        tk-dev \
+        libncurses5-dev \
+        libncursesw5-dev \
+        libreadline6-dev \
+        libdb5.3-dev \
+        libgdbm-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        libbz2-dev \
+        libexpat1-dev \
+        liblzma-dev \
+        zlib1g-dev && \
+        apt-get autoremove && \
+        apt-get clean
 
 WORKDIR /
 RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
