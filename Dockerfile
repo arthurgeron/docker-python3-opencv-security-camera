@@ -50,20 +50,6 @@ RUN apt-get install -y \
 
 RUN pip install numpy && \
         # Delete source files 
-        rm -r Python-3.6.0 && \
-        apt-get --purge remove build-essential \
-        tk-dev \
-        libncurses5-dev \
-        libncursesw5-dev \
-        libreadline6-dev \
-        libdb5.3-dev \
-        libgdbm-dev \
-        libsqlite3-dev \
-        libssl-dev \
-        libbz2-dev \
-        libexpat1-dev \
-        liblzma-dev \
-        zlib1g-dev && \
         apt-get autoremove && \
         apt-get clean
 
