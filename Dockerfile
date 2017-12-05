@@ -54,6 +54,7 @@ RUN apt-get install -y python-pip \
 
 
 RUN pip install numpy && \
+        pip3 install numpy && \
         # Delete source files 
         apt-get autoremove && \
         apt-get clean
