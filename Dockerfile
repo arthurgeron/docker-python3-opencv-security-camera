@@ -49,8 +49,7 @@ RUN apt-get install -y \
 
 # Install pip
 
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-      python get-pip.py
+RUN apt-get install -y python-pip
 
 
 RUN pip install numpy && \
