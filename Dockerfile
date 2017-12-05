@@ -47,6 +47,11 @@ RUN apt-get install -y \
         libpq-dev
 
 
+# Install pip
+
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+      python3 get-pip.py
+
 
 RUN pip install numpy && \
         # Delete source files 
@@ -63,7 +68,7 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 && sed -i 's/#if NPY_INTERNAL_BUILD/#ifndef NPY_INTERNAL_BUILD\n#define NPY_INTERNAL_BUILD/g' /usr/local/lib/python3.6/site-packages/numpy/core/include/numpy/npy_common.h \
 && mkdir /opencv-3.3.0/cmake_binary \
 && cd /opencv-3.3.0/cmake_binary \
-&& cmake -DBUILD_TIFF=ON \
+&& cmake -D BUILD_TIFF=ON \
   -DBUILD_opencv_java=OFF \
   -DWITH_CUDA=OFF \
   -DENABLE_AVX=ON \
