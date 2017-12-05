@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y \
     software-properties-common \
     python-software-properties
-RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
+RUN add-apt-repository -y ppa:deadsnakes/ppa && \
         add-apt-repository -y ppa:jonathonf/python-3.6 && \
         apt-get update
 RUN apt-get install -y \
