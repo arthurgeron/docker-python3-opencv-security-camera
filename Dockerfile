@@ -8,8 +8,8 @@ RUN apt-get update && \
     python-software-properties
 RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
         add-apt-repository -y ppa:jonathonf/python-3.6 && \
-        apt-get update && \
-        apt-get install -y \
+        apt-get update
+RUN apt-get install -y \
         build-essential \
         cmake \
         git \
