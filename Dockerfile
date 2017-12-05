@@ -50,7 +50,7 @@ RUN apt-get install -y \
 # Install pip
 
 RUN apt-get install -y python-pip \
-        python-dev
+        python-dev python3-pip
 
 
 RUN pip install numpy && \
