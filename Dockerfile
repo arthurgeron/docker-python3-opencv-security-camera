@@ -2,7 +2,10 @@ FROM resin/armv7hf-debian
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
 USER root
 RUN [ "cross-build-start" ]
-RUN apt-get install -y software-properties-common python-software-properties
+RUN apt-get update && \
+    apt-get install -y \
+    software-properties-common \
+    python-software-properties
 RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
         add-apt-repository -y ppa:jonathonf/python-3.6 && \
         apt-get update && \
