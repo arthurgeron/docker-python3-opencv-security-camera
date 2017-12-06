@@ -46,11 +46,9 @@ RUN apt-get install -y \
         libavformat-dev \
         libpq-dev
 
-
 # Install pip
 
-RUN apt-get install -y python-pip \
-        python-dev python3-pip python3-dev
+RUN apt-get python3-pip
 
 
 RUN pip install numpy && \
@@ -58,6 +56,10 @@ RUN pip install numpy && \
         # Delete source files 
         apt-get autoremove && \
         apt-get clean
+
+# Delete later
+RUN apt-get install -y tree && \
+        tree -a /usr/local/lib/python* && pause
 
 WORKDIR /
 RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
