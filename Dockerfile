@@ -51,7 +51,7 @@ RUN apt-get install -y \
 RUN apt-get install -y python3-pip
 
 
-RUN pip install numpy && \
+RUN pip3 install numpy && \
         pip3 install numpy && \
         # Delete source files 
         apt-get autoremove && \
@@ -91,7 +91,7 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 
 RUN git clone https://github.com/arthurgeron/picamera \
   && cd picamera \
-  && pip install -r requirements.txt \
+  && pip3 install -r requirements.txt \
   && chmod +x main.py \
   && cd .. 
 RUN [ "cross-build-end" ]  
