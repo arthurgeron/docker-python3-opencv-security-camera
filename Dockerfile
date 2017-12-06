@@ -48,7 +48,7 @@ RUN apt-get install -y \
 
 # Install pip
 
-RUN apt-get python3-pip
+RUN apt-get install -y python3-pip
 
 
 RUN pip install numpy && \
