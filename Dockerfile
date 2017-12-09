@@ -3,45 +3,50 @@ FROM resin/armv7hf-debian
 RUN [ "cross-build-start" ]
 RUN apt-get update && \
     apt-get install -y --force-yes \
-    python3 python3-numpy python3-nose python3-pandas \
-    python python-numpy python-nose python-pandas \
+    python3 python3-dev python3-numpy python3-nose python3-pandas \
+    python python-dev python-numpy python-nose python-pandas \
     pep8 python-pip python3-pip python-wheel \
     python-sphinx \
     wget \
+    build-essential \
+    cmake \
+    pkg-config \
+    libjpeg-dev \
+    libtiff5-dev \
+    libjasper-dev \
+    libpng12-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libv4l-dev \
+    libgtk2.0-dev \
+    libatlas-base-dev \
+    gfortran \
     zip \
     unzip \
     sed && \
-    pip install --upgrade setuptools && \
-    pip3 install --upgrade setuptools
+    pip install --upgrade setuptools numpy && \
+    pip3 install --upgrade setuptools numpy
 
-RUN apt-get install -y --force-yes cmake && \
+RUN apt-get install -y --force-yes   && \
     wget https://github.com/opencv/opencv/archive/3.3.0.zip \
     && unzip 3.3.0.zip \
     # && sed -i 's/#if NPY_INTERNAL_BUILD/#ifndef NPY_INTERNAL_BUILD\n#define NPY_INTERNAL_BUILD/g' /usr/local/lib/python3.4/site-packages/numpy/core/include/numpy/npy_common.h \
     && mkdir /opencv-3.3.0/cmake_binary \
     && cd /opencv-3.3.0/cmake_binary \
-    && cmake -D BUILD_TIFF=ON \
-    -DCMAKE_TOOLCHAIN_FILE=/opencv-3.3.0/platforms/linux/arm-gnueabi.toolchain.cmake \
-    -DBUILD_opencv_java=OFF \
-    -DWITH_CUDA=OFF \
-    -DENABLE_AVX=ON \
-    -DWITH_OPENGL=ON \
-    -DWITH_OPENCL=ON \
-    -DWITH_IPP=ON \
-    -DWITH_TBB=ON \
-    -DWITH_EIGEN=ON \
-    -DWITH_V4L=ON \
-    -DBUILD_TESTS=OFF \
-    -DBUILD_PERF_TESTS=OFF \
-    -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
-    -DPYTHON_EXECUTABLE=$(which python3) \
-    -DPYTHON_INCLUDE_DIR=$(python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
-    -DPYTHON_PACKAGES_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
+    && cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv-3.3.0/modules \
+    -D BUILD_EXAMPLES=ON .. \
+    && make \
+    && make \
     && make install \
+    && ldconfig \
     && rm /3.3.0.zip \
     && rm -r /opencv-3.3.0 \
-    && cd ../.. 
+    && cd /usr/local/lib/python3.4/site-packages/ \
+    && mv cv2.cpython-34m.so cv2.so
 
 RUN git clone https://github.com/arthurgeron/picamera \
   && cd picamera \
