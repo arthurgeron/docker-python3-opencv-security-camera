@@ -1,35 +1,9 @@
-FROM resin/armv7hf-debian
+FROM python:3.6
 MAINTAINER Arthur Geron <johnnyblack000@hotmail.com>
 USER root
-RUN [ "cross-build-start" ]
 RUN apt-get update && \
-    apt-get install -y \
-    software-properties-common \
-    python-software-properties
-RUN apt-get install -y \
-        build-essential \
-        tk-dev \
-        libncurses5-dev \
-        libncurses5-dev \
-        libreadline6-dev \
-        libdb5.3-dev \
-        libgdbm-dev \
-        libsqlite3-dev \
-        libssl-dev \
-        libbz2-dev \
-        libexpat1-dev \
-        liblzma-dev \
-        zlib1g-dev \
-        curl && \
-        # Install Python
-        curl https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz -o Python-3.6.0.tar.xz && \
-        tar xf Python-3.6.0.tar.xz && \
-        cd Python-3.6.0 && \
-        ./configure && \
-        make && \
-        make altinstall && \
-        cd .. && \
         apt-get install -y \
+        build-essential \
         cmake \
         git \
         wget \
@@ -46,28 +20,19 @@ RUN apt-get install -y \
         libavformat-dev \
         libpq-dev
 
-# Install pip
-
-RUN apt-get install -y python3-pip
-
-
-RUN pip3 install numpy && \
-        pip3 install numpy && \
-        # Delete source files 
-        apt-get autoremove && \
-        apt-get clean
-
-# Delete later
-RUN apt-get install -y tree && \
-        tree -a /usr/local/lib/python* && pause
+RUN pip install numpy
 
 WORKDIR /
 RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
+&& git clone https://github.com/arthurgeron/picamera \
 && unzip 3.3.0.zip \
+&& cd picamera \
+&& pip install -r requirements.txt \
+&& cd .. \
 && sed -i 's/#if NPY_INTERNAL_BUILD/#ifndef NPY_INTERNAL_BUILD\n#define NPY_INTERNAL_BUILD/g' /usr/local/lib/python3.6/site-packages/numpy/core/include/numpy/npy_common.h \
 && mkdir /opencv-3.3.0/cmake_binary \
 && cd /opencv-3.3.0/cmake_binary \
-&& cmake -D BUILD_TIFF=ON \
+&& cmake -DBUILD_TIFF=ON \
   -DBUILD_opencv_java=OFF \
   -DWITH_CUDA=OFF \
   -DENABLE_AVX=ON \
@@ -87,14 +52,8 @@ RUN wget https://github.com/opencv/opencv/archive/3.3.0.zip \
 && make install \
 && rm /3.3.0.zip \
 && rm -r /opencv-3.3.0 \
-&& cd ../.. 
-
-RUN git clone https://github.com/arthurgeron/picamera \
-  && cd picamera \
-  && pip3 install -r requirements.txt \
-  && chmod +x main.py \
-  && cd .. 
-RUN [ "cross-build-end" ]  
+&& cd ../.. \
+&& chmod +x picamera/main.py
 #Expose port 80
 EXPOSE 80
 #Default command
