@@ -37,17 +37,14 @@ RUN apt-get install -y --force-yes   && \
     && cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D INSTALL_PYTHON_EXAMPLES=ON \
-    -D OPENCV_EXTRA_MODULES_PATH=~/opencv-3.3.0/modules \
     -D BUILD_EXAMPLES=ON .. \
-    && make \
-    && make \
+    && CORES=$(nproc --all) \
+    && make -j $CORES \
     && make install \
     && ldconfig \
+    && cd ../.. \
     && rm /3.3.0.zip \
-    && rm -r /opencv-3.3.0 \
-    && cd /usr/local/lib/python3.4/site-packages/ \
-    && mv cv2.cpython-34m.so cv2.so
-
+    && rm -r /opencv-3.3.0 
 RUN git clone https://github.com/arthurgeron/picamera \
   && cd picamera \
   && pip3 install -r requirements.txt \
@@ -58,5 +55,5 @@ RUN [ "cross-build-end" ]
 #Expose port 80
 EXPOSE 80
 #Default command
-# CMD ["picamera/main.py"]    
+CMD ["picamera/main.py"]    
 
