@@ -6,6 +6,7 @@ RUN apt-get update && \
     python3 python3-dev python3-numpy python3-nose python3-pandas \
     python python-dev python-numpy python-nose python-pandas \
     pep8 python-pip python3-pip python-wheel \
+    git \
     python-sphinx \
     wget \
     build-essential \
